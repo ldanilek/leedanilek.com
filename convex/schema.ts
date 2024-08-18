@@ -12,4 +12,8 @@ export default defineSchema({
     text: v.string(),
     cool: v.optional(v.number()),
   }).index("cool", ["cool"]),
+  routes: defineTable({
+    path: v.string(),
+    storageId: v.id("_storage"),
+  }).index("path", ["path"]),
 });

@@ -1,6 +1,5 @@
 import { Layout } from "@/Layout";
 import { useMutation, useQuery } from "convex/react";
-import { useState } from "react";
 import { api } from "../convex/_generated/api";
 
 export default function App() {
@@ -82,7 +81,7 @@ function DetailLine({ children }: { children: React.ReactNode }) {
   return <p className="hidden sm:block text-sm text-muted-foreground">{children}</p>;
 }
 
-function DetailLink({ href, children }: { href: string; children: ReactNode }) {
+function DetailLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
