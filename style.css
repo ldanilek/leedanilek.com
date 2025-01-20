@@ -377,3 +377,30 @@ img {
         min-height: 100px;
     }
 }
+
+.links-container {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.link-button {
+    text-decoration: none;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+}
+
+.link-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--card-shadow);
+    border-color: var(--link-color);
+}
+
+.link-button svg {
+    margin-right: 8px;
+}
