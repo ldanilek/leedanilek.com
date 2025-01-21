@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import FlipMove from "react-flip-move";
 
 const ReadingList = () => {
   const readingList = useQuery(api.readingList.get);
@@ -31,7 +32,7 @@ const ReadingList = () => {
     <section id="reading">
       <h3>Reading List</h3>
       <p>Media I recommend:</p>
-      <div className="reading-list">
+      <FlipMove typeName={null} className="reading-list">
         {readingList.map((item, index) => (
           <div
             key={item._id}
@@ -41,7 +42,7 @@ const ReadingList = () => {
             {item.title}
           </div>
         ))}
-      </div>
+      </FlipMove>
     </section>
   );
 };
