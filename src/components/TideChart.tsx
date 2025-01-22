@@ -4,7 +4,7 @@ import './TideChart.css';
 
 // Utility functions
 function formatTime(atime: Date): string {
-    const localTime = toLocalTime(atime);
+    const localTime = atime; //toLocalTime(atime);
     let hr = localTime.getHours();
     let am = "am";
     if (hr > 12) {

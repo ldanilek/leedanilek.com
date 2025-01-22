@@ -18,11 +18,19 @@ function getSeconds(td: number): number {
 
 // Using built-in Date methods since they're sufficient for our needs
 export function toLocalTime(atime: Date): Date {
-    return new Date(atime.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    // Create a new Date object to avoid modifying the input
+    const utcDate = new Date(atime.getTime());
+    // Convert UTC to Eastern Time by subtracting the timezone offset
+    const easternDate = new Date(utcDate.getTime() - (utcDate.getTimezoneOffset() * 60000));
+    return easternDate;
 }
 
 function toGMT(atime: Date): Date {
-    return new Date(atime.toUTCString());
+    // Create a new Date object to avoid modifying the input
+    const localDate = new Date(atime.getTime());
+    // Convert local time to UTC by adding the timezone offset
+    const gmtDate = new Date(localDate.getTime() + (localDate.getTimezoneOffset() * 60000));
+    return gmtDate;
 }
 
 class Tide {
@@ -220,7 +228,7 @@ class Tide {
     findNOGO(height: number, year: number, month: number, day: number, am = true): [Date | false, Date | false, Date, number] | false {
         const hour = am ? 0 : 12;
         // find high tide
-        const before = toGMT(new Date(year, month - 1, day, hour, 0, 0)); // Month is 0-based in JS Date
+        const before = new Date(year, month - 1, day, hour, 0, 0); // Month is 0-based in JS Date
         const after = new Date(before.getTime() + 12 * 3600000); // 12 hours in milliseconds
         
         const highTime = this.solveForExtremeBetween(before, after);
