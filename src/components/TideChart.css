@@ -1,0 +1,60 @@
+th {
+    text-align: center;
+    border: 1px solid black;
+}
+
+table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    text-align: center;
+    border: 1px solid black;
+}
+
+h1 {
+    text-align: center;
+}
+
+#formdiv {
+    text-align: right;
+}
+
+.submitbutton {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 100px;
+}
+
+form {
+    margin: 0 auto;
+    width: 300px;
+}
+
+.small {
+    font-size: 11px;
+}
+
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+    tr {
+        background-color: white;
+        color: black;
+    }
+}
+
+.highlight {
+    background-color: yellow;
+}
+
+tr.hh:hover {
+    background-color: #99FF99;
+}
+
+.no-show {
+    display: none !important;
+} 
