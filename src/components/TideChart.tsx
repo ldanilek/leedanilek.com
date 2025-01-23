@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
-import { tide, toLocalTime } from '../utils/LieutenantIslandTide';
+import React, { useState, useMemo, useEffect } from 'react';
+import { tide } from '../utils/LieutenantIslandTide';
 import './TideChart.css';
+import { makeICSFile } from '../utils/TideICS';
 
 // Utility functions
 function formatTime(atime: Date): string {
@@ -71,7 +72,18 @@ const TideChart: React.FC<TideChartProps> = ({
     const [month, setMonth] = useState(inputMonth || currentDate.getMonth() + 1);
     const [nogoHeight, setNogoHeight] = useState(inputHeight || DEFAULT_HEIGHT);
 
-    const [tableData, nogoTimes] = useMemo(() => {
+    useEffect(() => {
+        // Save the original title
+        const originalTitle = document.title;
+        // Set new title
+        document.title = "Wellfleet Tides";
+        // Restore the original title when component unmounts
+        return () => {
+            document.title = originalTitle;
+        };
+    }, []);
+
+    const [tableData, icsFile] = useMemo(() => {
         const daysInMonth = new Date(year, month, 0).getDate();
         const tableData: Array<{
             date: string;
@@ -123,7 +135,9 @@ const TideChart: React.FC<TideChartProps> = ({
             });
         }
 
-        return [tableData, newNogoTimes];
+        const icsFile = makeICSFile(year, month, newNogoTimes);
+
+        return [tableData, icsFile];
     }, [year, month, nogoHeight]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -142,6 +156,15 @@ const TideChart: React.FC<TideChartProps> = ({
         if (newHeight > 0 && newHeight < 30) {
             setNogoHeight(newHeight);
         }
+    };
+
+    const handleDownload = () => {
+        const blob = new Blob([icsFile], { type: 'text/calendar' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${year}-${month}-tides.ics`;
+        a.click();
     };
 
     return (
@@ -187,6 +210,7 @@ const TideChart: React.FC<TideChartProps> = ({
             </div>
 
             <div className="no-print">
+                <div className='submitbutton'><button onClick={handleDownload}>Download NO GO Calendar</button></div>
                 <h4>About</h4>
                 <p>
                     Uses data from Provincetown (not Wellfleet). Provincetown is hopefully the best <a href="http://tidesandcurrents.noaa.gov/harmonic.html">harmonic</a> station 
