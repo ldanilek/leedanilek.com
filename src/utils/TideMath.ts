@@ -11,7 +11,7 @@ export const r2d: number = 180.0 / Math.PI;
 // The following functions take a dictionary of astronomical values (in degrees)
 // and return dimensionless scale factors for constituent amplitudes.
 
-function f_unity(a: Record<string, AstronomicalParameter>): number {
+function f_unity(_a: Record<string, AstronomicalParameter>): number {
   return 1.0;
 }
 
@@ -115,7 +115,7 @@ function f_Modd(a: Record<string, AstronomicalParameter>, n: number): number {
 }
 
 // Node factors u, see Table 2 of Schureman.
-function u_zero(a: Record<string, AstronomicalParameter>): number {
+function u_zero(_a: Record<string, AstronomicalParameter>): number {
   return 0.0;
 }
 

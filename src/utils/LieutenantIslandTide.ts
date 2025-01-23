@@ -16,6 +16,7 @@ function getSeconds(td: number): number {
     return td / 1000; // Convert milliseconds to seconds
 }
 
+/*
 // Using built-in Date methods since they're sufficient for our needs
 export function toLocalTime(atime: Date): Date {
     // Create a new Date object to avoid modifying the input
@@ -32,6 +33,7 @@ function toGMT(atime: Date): Date {
     const gmtDate = new Date(localDate.getTime() + (localDate.getTimezoneOffset() * 60000));
     return gmtDate;
 }
+*/
 
 class Tide {
     private phases: number[];

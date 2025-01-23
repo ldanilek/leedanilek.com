@@ -32,7 +32,7 @@ function formatHeight(height: number): string {
     return toFeet(height).toFixed(2);
 }
 
-function formatDate(year: number, month: number, day: number): string {
+function formatDate(_year: number, month: number, day: number): string {
     const monthAbbrev = [null, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][month];
     return `${monthAbbrev} ${day}`;
 }
