@@ -10,5 +10,4 @@ Addhandler cgi-script .py .pl .cgi
 # React Router Support
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^tide$ /index.html [L]
-RewriteRule ^tide/ /index.html [L]
+RewriteRule ^tide.py$ /index.html [L]

@@ -30,7 +30,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainContent />} />
-          <Route path="/tide" element={<TideChart />} />
+          <Route path="/tide.py" element={<TideChart />} />
         </Routes>
       </BrowserRouter>
     </ConvexProvider>
