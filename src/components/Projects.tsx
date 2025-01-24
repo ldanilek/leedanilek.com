@@ -11,6 +11,7 @@ const Projects = () => {
         <li><a href="https://www.convex.dev/components/aggregate">Aggregate</a> - a component for performing aggregations on a Convex table.</li>
         <li><a href="https://github.com/ldanilek/table-history">Table History</a> - a component for recording history of a Convex table.</li>
         <li><a href="https://crates.io/crates/short_future">short_future</a> - a rust crate for making async functions retriable.</li>
+        <li><a href="https://stack.convex.dev/author/lee-danilek">Technical articles</a> describing advanced patterns</li>
       </ul>
 
       <h4>Research</h4>
