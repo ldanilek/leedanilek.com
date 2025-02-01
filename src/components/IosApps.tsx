@@ -150,12 +150,19 @@ const ScreenshotContainer: React.FC<{
     };
     const handleScroll = () => {
       setActiveCurrentIndex(computeCurrentIndex());
+      const currentPosition = scrollElement.scrollLeft;
+      setTimeout(() => {
+        if (scrollElement.scrollLeft === currentPosition) {
+          handleScrollEnd();
+        }
+      }, 750);
     };
 
-    scrollElement.addEventListener('scrollend', handleScrollEnd);
+    // scrollend is not supported in Safari or iOS browsers, so we use scroll + a hack
+    //scrollElement.addEventListener('scrollend', handleScrollEnd);
     scrollElement.addEventListener('scroll', handleScroll);
     return () => {
-      scrollElement.removeEventListener('scrollend', handleScrollEnd);
+      //scrollElement.removeEventListener('scrollend', handleScrollEnd);
       scrollElement.removeEventListener('scroll', handleScroll);
     }
   }, [scrollRef.current]);
