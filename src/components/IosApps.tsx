@@ -157,8 +157,8 @@ const ScreenshotContainer: React.FC<{
     return () => {
       scrollElement.removeEventListener('scrollend', handleScrollEnd);
       scrollElement.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    }
+  }, [scrollRef.current]);
 
   // If someone else selects a different screenshot, scroll to it
   useEffect(() => {
