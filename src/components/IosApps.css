@@ -13,6 +13,15 @@
   --github-bg-hover: #1a1f24;
   --dot-bg: #ccc;
   --dot-bg-active: #666;
+  --dot-bg-hover: #999;
+  padding-top: 0;
+  --header-color: #2b5876;
+  box-sizing: border-box;
+}
+
+/* Add box-sizing to all elements */
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,12 +30,14 @@
     --text-secondary: #b0b0b0;
     --bg-primary: #1a1a1a;
     --bg-secondary: #2a2a2a;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --shadow-color-hover: rgba(0, 0, 0, 0.4);
+    --shadow-color: rgba(255, 255, 255, 0.3);
+    --shadow-color-hover: rgba(255, 255, 255, 0.4);
     --github-bg: #383838;
     --github-bg-hover: #454545;
     --dot-bg: #444;
-    --dot-bg-active: #888;
+    --dot-bg-active: #fff;
+    --dot-bg-hover: #666;
+    --header-color: #89c4f4;
   }
 }
 
@@ -60,8 +71,9 @@
 
 .apps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  width: 100%;
 }
 
 .app-card {
@@ -70,6 +82,7 @@
   padding: 1.5rem;
   box-shadow: 0 4px 6px var(--shadow-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow-x: hidden;
 }
 
 .app-card:hover {
@@ -80,8 +93,16 @@
 .app-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
   margin-bottom: 1rem;
+  background: none;
+}
+
+.app-header-main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: none;
 }
 
 .app-icon {
@@ -106,16 +127,18 @@
 .screenshots-container {
   margin-bottom: 1.5rem;
   position: relative;
+  overflow-x: visible;
 }
 
 .screenshots-scroll {
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll;
   scroll-snap-type: x mandatory;
   gap: 1rem;
   padding-bottom: 1rem;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  width: 100%;
 }
 
 .screenshots-scroll::-webkit-scrollbar {
@@ -124,10 +147,18 @@
 
 .app-screenshot {
   width: 100%;
-  flex: 0 0 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 4px var(--shadow-color);
+  box-shadow: 0 0 4px 4px var(--shadow-color);
+  object-fit: contain;
+}
+
+.screenshot-container {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   scroll-snap-align: start;
+  flex: 0 0 100%;
+  padding: 4px;
 }
 
 .screenshot-dots {
@@ -142,7 +173,24 @@
   height: 8px;
   border-radius: 50%;
   background-color: var(--dot-bg);
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.dot:hover {
+  background-color: var(--dot-bg-hover);
+  transform: scale(1.2);
+}
+
+.dot-active {
+  background-color: var(--dot-bg-active);
+  transform: scale(1.2);
+}
+
+.dot-active:hover {
+  background-color: var(--dot-bg-active);
 }
 
 /* Make the dot active when its screenshot is in view */
@@ -156,27 +204,72 @@
 }
 
 .app-links {
-  display: flex;
-  justify-content: flex-end;
+  display: none;
 }
 
 .github-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
-  background-color: var(--github-bg);
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 8px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
 }
 
 .github-link:hover {
-  background-color: var(--github-bg-hover);
+  color: var(--text-primary);
+  transform: translateY(-2px);
   text-decoration: none;
 }
 
 .ios-apps h3 {
   margin-bottom: 20px;
+}
+
+.ios-apps-header {
+  background: none;
+  color: var(--header-color);
+  padding: 1.5rem 0;
+  text-align: left;
+}
+
+.ios-apps-header h1 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0;
+  display: inline-block;
+}
+
+.ios-apps-header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ios-apps-header a:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+  .ios-apps {
+    padding: 20px;
+  }
+  
+  .ios-apps-header {
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .ios-apps-header h1 {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .apps-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 } 

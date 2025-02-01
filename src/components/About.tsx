@@ -1,7 +1,7 @@
 const About = () => {
   return (
     <section id="about">
-      <h3>About Me</h3>
+      <h3 className="section-header">About Me</h3>
       <p>
         Hey there! I'm Lee, a software engineer currently building all sorts of features
         to make app development amazing with Convex: a realtime database, a full-stack backend framework,

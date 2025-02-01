@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { GitHubIcon } from './Links';
 import './IosApps.css';
 
 interface IosApp {
@@ -26,22 +28,24 @@ const apps: IosApp[] = [
   },
   {
     name: 'Color Identify',
-    description: 'Identify colors in real-time using your camera and get their RGB/HSV values',
-    githubUrl: 'https://github.com/leedanilek/color-identify-ios',
-    iconUrl: '/ios_images/icons/color-identify.png',
+    description: 'Identify color names, for the colorblind like me',
+    githubUrl: 'https://github.com/ldanilek/Color-ID',
+    iconUrl: '/ios_images/icons/color-id.png',
     screenshots: [
-      '/ios_images/screenshots/color-identify-1.png',
-      '/ios_images/screenshots/color-identify-2.png'
+      '/ios_images/screenshots/color-id/marker.PNG',
+      '/ios_images/screenshots/color-id/puppy.jpg',
+      '/ios_images/screenshots/color-id/about-color.png',
     ]
   },
   {
     name: 'CO2 Footprint',
     description: 'Calculate and track your carbon footprint with detailed breakdowns',
-    githubUrl: 'https://github.com/leedanilek/co2-footprint-ios',
+    githubUrl: 'https://github.com/ldanilek/CO2-Footprint',
     iconUrl: '/ios_images/icons/co2-footprint.png',
     screenshots: [
-      '/ios_images/screenshots/co2-footprint-1.png',
-      '/ios_images/screenshots/co2-footprint-2.png'
+      '/ios_images/screenshots/co2-footprint/extrapolation.PNG',
+      '/ios_images/screenshots/co2-footprint/input.PNG',
+      '/ios_images/screenshots/co2-footprint/improvements.PNG',
     ]
   },
   {
@@ -50,8 +54,9 @@ const apps: IosApp[] = [
     githubUrl: 'https://github.com/leedanilek/lazer-maze-ios',
     iconUrl: '/ios_images/icons/lazer-maze.png',
     screenshots: [
-      '/ios_images/screenshots/lazer-maze-1.png',
-      '/ios_images/screenshots/lazer-maze-2.png'
+      '/ios_images/screenshots/lazer-maze/complex-level.PNG',
+      '/ios_images/screenshots/lazer-maze/instructions.PNG',
+      '/ios_images/screenshots/lazer-maze/menu.png',
     ]
   },
   {
@@ -86,9 +91,88 @@ const apps: IosApp[] = [
   }
 ];
 
+const AppCard: React.FC<{ app: IosApp }> = ({ app }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Update currentIndex when scrolling
+  useEffect(() => {
+    const scrollElement = scrollRef.current;
+    if (!scrollElement) return;
+
+    const handleScroll = () => {
+      const scrollPosition = scrollElement.scrollLeft;
+      const itemWidth = scrollElement.clientWidth;
+      const newIndex = Math.round(scrollPosition / itemWidth);
+      setCurrentIndex(newIndex);
+    };
+
+    scrollElement.addEventListener('scroll', handleScroll);
+    return () => scrollElement.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index: number) => {
+    if (scrollRef.current) {
+      const itemWidth = scrollRef.current.clientWidth;
+      scrollRef.current.scrollTo({
+        left: itemWidth * index,
+        behavior: 'smooth'
+      });
+      setCurrentIndex(index);
+    }
+  };
+
+  return (
+    <div className="app-card">
+      <div className="app-header">
+        <div className="app-header-main">
+          <img src={app.iconUrl} alt={`${app.name} icon`} className="app-icon" />
+          <h3>{app.name}</h3>
+        </div>
+        <a href={app.githubUrl} target="_blank" rel="noopener noreferrer" className="github-link" aria-label="View on GitHub">
+          <GitHubIcon />
+        </a>
+      </div>
+      <p className="app-description">{app.description}</p>
+      <div className="screenshots-container">
+        <div className="screenshots-scroll" ref={scrollRef}>
+          {app.screenshots.map((screenshot) => (
+            <Screenshot key={screenshot} screenshot={screenshot} name={app.name} />
+          ))}
+        </div>
+        {app.screenshots.length > 1 && (
+          <div className="screenshot-dots">
+            {app.screenshots.map((_, index) => (
+              <button
+                key={index}
+                className={`dot ${index === currentIndex ? 'dot-active' : ''}`}
+                onClick={() => scrollToIndex(index)}
+                aria-label={`View screenshot ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Screenshot: React.FC<{ screenshot: string, name: string }> = ({ screenshot, name }) => {
+  return (
+    <div className="screenshot-container">
+      <img src={screenshot} alt={`${name} screenshot`} className="app-screenshot" />
+    </div>
+  );
+};
+
 const IosApps: React.FC = () => {
   return (
     <div className="ios-apps">
+      <header className="ios-apps-header">
+        <Link to="/">
+          <h1>Lee Danilek</h1>
+        </Link>
+      </header>
       <h2>iOS Apps</h2>
       <p className="ios-apps-intro">
         A collection of iOS apps I developed between 2012-2016. While these apps are no longer available on the App Store,
@@ -97,37 +181,7 @@ const IosApps: React.FC = () => {
       
       <div className="apps-grid">
         {apps.map((app) => (
-          <div key={app.name} className="app-card">
-            <div className="app-header">
-              <img src={app.iconUrl} alt={`${app.name} icon`} className="app-icon" />
-              <h3>{app.name}</h3>
-            </div>
-            <p className="app-description">{app.description}</p>
-            <div className="screenshots-container">
-              <div className="screenshots-scroll">
-                {app.screenshots.map((screenshot, index) => (
-                  <img 
-                    key={index}
-                    src={screenshot} 
-                    alt={`${app.name} screenshot ${index + 1}`} 
-                    className="app-screenshot"
-                  />
-                ))}
-              </div>
-              {app.screenshots.length > 1 && (
-                <div className="screenshot-dots">
-                  {app.screenshots.map((_, index) => (
-                    <span key={index} className="dot" />
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className="app-links">
-              <a href={app.githubUrl} target="_blank" rel="noopener noreferrer" className="github-link">
-                View on GitHub
-              </a>
-            </div>
-          </div>
+          <AppCard key={app.name} app={app} />
         ))}
       </div>
     </div>

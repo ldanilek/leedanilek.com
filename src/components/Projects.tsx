@@ -1,7 +1,7 @@
 const Projects = () => {
   return (
     <section id="projects">
-      <h3>Projects</h3>
+      <h3 className="section-header">Projects</h3>
 
       <h4>Convex</h4>
       <p>

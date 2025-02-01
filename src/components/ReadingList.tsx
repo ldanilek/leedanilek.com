@@ -47,7 +47,7 @@ const ReadingList = () => {
 
   return (
     <section id="reading">
-      <h3>Reading List</h3>
+      <h3 className="section-header">Reading List</h3>
       <p>Media I recommend:</p>
       <FlipMove typeName={null} className="reading-list">
         {readingList.map((item, index) => (
