@@ -172,8 +172,8 @@ const ScreenshotContainer: React.FC<{
 
   // If we select a new screenshot, update the persisted screenshot
   useEffect(() => {
-    if (persistedSelectedScreenshot) {
-      const persistedIndex = screenshots.indexOf(persistedSelectedScreenshot);
+    if (persistedSelectedScreenshot !== undefined) {
+      const persistedIndex = persistedSelectedScreenshot ? screenshots.indexOf(persistedSelectedScreenshot) : 0;
       if (persistedIndex !== currentIndex) {
         void updatePersistedSelectedScreenshot({ appName: name, selectedScreenshot: screenshots[currentIndex] });
       }
