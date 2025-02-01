@@ -6,9 +6,14 @@ import './ReadingList.css';
 
 const ReadingListItem = ({ item }: { item: Doc<"readingList"> }) => {
   return (
-    <div
+    <div 
       className={`reading-list-item ${item.type}`}
+      title="Click to reorder"
     >
+      <div className="reading-list-item-left-gradient" />
+      <div className="reading-list-item-right-gradient" />
+      {item.type === 'book' && <div className="reading-list-item-icon">📚</div>}
+      {item.type === 'video' && <div className="reading-list-item-icon">🎥</div>}
       {item.title}
     </div>
   );
@@ -23,8 +28,8 @@ const ReadingList = () => {
   const handleClick = async (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
-    const isLeftSide = clickX < rect.width / 3;
-    const isRightSide = clickX > (rect.width * 2) / 3;
+    const isLeftSide = clickX < rect.width / 2;
+    const isRightSide = clickX > rect.width / 2;
 
     if (!isLeftSide && !isRightSide) return;
     if (isLeftSide && index === 0) return;

@@ -1,0 +1,90 @@
+.reading-list {
+  list-style: none;
+  margin-left: 0;
+  padding: 1rem 0;
+}
+
+.reading-list > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.reading-list-item {
+  background: var(--card-bg);
+  padding: 1.25rem 1rem;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px var(--card-shadow);
+  min-height: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.reading-list-item:hover {
+  box-shadow: 0 5px 15px var(--card-shadow);
+}
+
+.reading-list-item-left-gradient,
+.reading-list-item-right-gradient {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33.33%;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.reading-list-item-left-gradient {
+  left: 0;
+  background: linear-gradient(90deg, rgba(var(--heading-color-rgb), 0.05), transparent);
+}
+
+.reading-list-item-right-gradient {
+  right: 0;
+  background: linear-gradient(-90deg, rgba(var(--heading-color-rgb), 0.05), transparent);
+}
+
+.reading-list-item:hover .reading-list-item-left-gradient,
+.reading-list-item:hover .reading-list-item-right-gradient {
+  opacity: 1;
+}
+
+.reading-list-item-icon {
+  position: absolute;
+  font-size: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+}
+
+.reading-list-item.book::before {
+  position: absolute;
+  font-size: 1.2rem;
+}
+
+.reading-list-item.video::before {
+  position: absolute;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .reading-list {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .reading-list-item {
+    padding: 1rem 0.75rem;
+    min-height: 10px;
+    font-size: 0.9rem;
+  }
+} 
