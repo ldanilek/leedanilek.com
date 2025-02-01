@@ -57,7 +57,7 @@ const apps: IosApp[] = [
     iconUrl: '/ios_images/icons/lazer-maze.png',
     screenshots: [
       '/ios_images/screenshots/lazer-maze/complex-level.PNG',
-      '/ios_images/screenshots/lazer-maze/instructions.png',
+      '/ios_images/screenshots/lazer-maze/mirror-instructions.png',
       '/ios_images/screenshots/lazer-maze/menu.png',
     ]
   },
