@@ -6,6 +6,7 @@ import Links from "./components/Links";
 import Projects from "./components/Projects";
 import ReadingList from "./components/ReadingList";
 import TideChart from './components/TideChart';
+import IosApps from './components/IosApps';
 import "./App.css";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/tide.py" element={<TideChart />} />
+          <Route path="/ios" element={<IosApps />} />
         </Routes>
       </BrowserRouter>
     </ConvexProvider>

@@ -36,8 +36,8 @@ const Projects = () => {
 
       <h4>Applications</h4>
       <ul>
-        <li><a href="ios/index.html">View All iOS Apps</a> - Collection of published iOS applications</li>
-        <li><a href="tide.py">Tides Calculator</a> - Tool for predicting tidal patterns</li>
+        <li><a href="/ios">View All iOS Apps</a> - Collection of published iOS applications</li>
+        <li><a href="/tide.py">Tides Calculator</a> - Tool for predicting tidal patterns</li>
       </ul>
     </section>
   );
