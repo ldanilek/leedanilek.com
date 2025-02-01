@@ -39,7 +39,7 @@ const apps: IosApp[] = [
   },
   {
     name: 'CO2 Footprint',
-    description: 'Calculate and track your carbon footprint with detailed breakdowns',
+    description: 'Calculate personal carbon footprint',
     githubUrl: 'https://github.com/ldanilek/CO2-Footprint',
     iconUrl: '/ios_images/icons/co2-footprint.png',
     screenshots: [
@@ -50,43 +50,55 @@ const apps: IosApp[] = [
   },
   {
     name: 'Lazer-Maze',
-    description: 'A puzzle game where you guide laser beams through mazes using mirrors and prisms',
-    githubUrl: 'https://github.com/leedanilek/lazer-maze-ios',
+    description: 'Puzzle game of lasers and mirrors',
+    githubUrl: 'https://github.com/ldanilek/Lazer-Maze',
     iconUrl: '/ios_images/icons/lazer-maze.png',
     screenshots: [
       '/ios_images/screenshots/lazer-maze/complex-level.PNG',
-      '/ios_images/screenshots/lazer-maze/instructions.PNG',
+      '/ios_images/screenshots/lazer-maze/instructions.png',
       '/ios_images/screenshots/lazer-maze/menu.png',
     ]
   },
   {
     name: 'Hangmaner',
-    description: 'A unique take on the classic Hangman game with multiple categories and difficulty levels',
-    githubUrl: 'https://github.com/leedanilek/hangmaner-ios',
+    description: 'App for identifying the best next hangman guess',
+    githubUrl: 'https://github.com/ldanilek/Hangmaner',
     iconUrl: '/ios_images/icons/hangmaner.png',
     screenshots: [
-      '/ios_images/screenshots/hangmaner-1.png',
-      '/ios_images/screenshots/hangmaner-2.png'
+      '/ios_images/screenshots/hangmaner/blockadingDvorak.png',
+      '/ios_images/screenshots/hangmaner/newGameCalendar.png',
+      '/ios_images/screenshots/hangmaner/probablydvorak.png',
     ]
   },
   {
     name: 'BloodBot',
-    description: 'Track and analyze blood glucose levels with smart insights and trends',
-    githubUrl: 'https://github.com/leedanilek/bloodbot-ios',
+    description: 'Game where you drive a robot around cleaning up a bloodstream of diseases',
+    githubUrl: 'https://github.com/ldanilek/BloodBot',
     iconUrl: '/ios_images/icons/bloodbot.png',
     screenshots: [
-      '/ios_images/screenshots/bloodbot-1.png',
-      '/ios_images/screenshots/bloodbot-2.png'
+      '/ios_images/screenshots/bloodbot/game.png',
+      '/ios_images/screenshots/bloodbot/game1.png',
     ]
   },
   {
     name: 'PhysError',
-    description: 'Calculate and propagate uncertainties in physics measurements and calculations',
-    githubUrl: 'https://github.com/leedanilek/physerror-ios',
+    description: 'Propagating error bounds through physics equations',
+    githubUrl: 'https://github.com/ldanilek/PhysError',
     iconUrl: '/ios_images/icons/physerror.png',
     screenshots: [
-      '/ios_images/screenshots/physerror-1.png',
-      '/ios_images/screenshots/physerror-2.png'
+      '/ios_images/screenshots/physerror/calculation.png',
+      '/ios_images/screenshots/physerror/withvariables.png'
+    ]
+  },
+  {
+    name: 'Play Turing',
+    description: 'Puzzle game where you write rules for a Turing machine',
+    githubUrl: 'https://github.com/ldanilek/Play-Turing',
+    iconUrl: '/ios_images/icons/play-turing.png',
+    screenshots: [
+      '/ios_images/screenshots/play-turing/xor.png',
+      '/ios_images/screenshots/play-turing/binaryadd1.png',
+      '/ios_images/screenshots/play-turing/levels.png'
     ]
   }
 ];
@@ -175,7 +187,7 @@ const IosApps: React.FC = () => {
       </header>
       <h2>iOS Apps</h2>
       <p className="ios-apps-intro">
-        A collection of iOS apps I developed between 2012-2016. While these apps are no longer available on the App Store,
+        A collection of iOS apps I developed under the name "Ship Shape Apps" between 2011-2017. While these apps are no longer available on the App Store,
         you can explore their source code on GitHub.
       </p>
       

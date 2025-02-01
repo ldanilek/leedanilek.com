@@ -15,6 +15,7 @@ const Header = () => {
           <li><a href="#about" onClick={(e) => scrollToSection(e, 'about')}>About</a></li>
           <li><a href="#links" onClick={(e) => scrollToSection(e, 'links')}>Links</a></li>
           <li><a href="#projects" onClick={(e) => scrollToSection(e, 'projects')}>Projects</a></li>
+          <li><a href="/ios">iOS Apps</a></li>
           <li><a href="#reading" onClick={(e) => scrollToSection(e, 'reading')}>Reading List</a></li>
         </ul>
       </nav>

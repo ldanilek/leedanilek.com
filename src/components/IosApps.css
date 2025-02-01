@@ -41,10 +41,6 @@
   }
 }
 
-.ios-apps a:hover {
-  text-decoration: underline;
-}
-
 .ios-apps ul {
   list-style-type: disc;
   margin-left: 20px;
@@ -80,14 +76,14 @@
   background: var(--bg-primary);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px var(--shadow-color);
+  box-shadow: 0 0px 6px var(--shadow-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow-x: hidden;
 }
 
 .app-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 12px var(--shadow-color-hover);
+  box-shadow: 0 1px 12px var(--shadow-color-hover);
 }
 
 .app-header {
