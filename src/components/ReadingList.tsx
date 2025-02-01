@@ -1,6 +1,18 @@
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import FlipMove from "react-flip-move";
+import { Doc } from "../../convex/_generated/dataModel";
+import './ReadingList.css';
+
+const ReadingListItem = ({ item }: { item: Doc<"readingList"> }) => {
+  return (
+    <div
+      className={`reading-list-item ${item.type}`}
+    >
+      {item.title}
+    </div>
+  );
+};
 
 const ReadingList = () => {
   const readingList = useQuery(api.readingList.get);
@@ -34,12 +46,10 @@ const ReadingList = () => {
       <p>Media I recommend:</p>
       <FlipMove typeName={null} className="reading-list">
         {readingList.map((item, index) => (
-          <div
-            key={item._id}
-            className={`reading-list-item ${item.type}`}
-            onClick={(e) => handleClick(e, index)}
-          >
-            {item.title}
+          <div key={item._id} className="reading-list-container" onClick={(e) => handleClick(e, index)}>
+            <ReadingListItem
+              item={item}
+            />
           </div>
         ))}
       </FlipMove>
