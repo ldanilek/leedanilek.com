@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as ios from "../ios.js";
 import type * as readingList from "../readingList.js";
 
 /**
@@ -24,6 +25,7 @@ import type * as readingList from "../readingList.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  ios: typeof ios;
   readingList: typeof readingList;
 }>;
 export declare const api: FilterApi<

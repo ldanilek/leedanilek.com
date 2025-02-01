@@ -15,4 +15,8 @@ export default defineSchema({
     url: v.optional(v.string()),
     order: v.number(),
   }),
+  iosSelectedScreenshots: defineTable({
+    appName: v.string(),
+    selectedScreenshot: v.string(),
+  }).index("by_app_name", ["appName"]),
 }); 

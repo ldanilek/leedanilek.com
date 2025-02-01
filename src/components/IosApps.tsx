@@ -1,7 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { GitHubIcon } from './Links';
 import './IosApps.css';
+import { api } from '../../convex/_generated/api';
+import { useMutation, useQuery } from 'convex/react';
 
 interface IosApp {
   name: string;
@@ -104,36 +106,6 @@ const apps: IosApp[] = [
 ];
 
 const AppCard: React.FC<{ app: IosApp }> = ({ app }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // Update currentIndex when scrolling
-  useEffect(() => {
-    const scrollElement = scrollRef.current;
-    if (!scrollElement) return;
-
-    const handleScroll = () => {
-      const scrollPosition = scrollElement.scrollLeft;
-      const itemWidth = scrollElement.clientWidth;
-      const newIndex = Math.round(scrollPosition / itemWidth);
-      setCurrentIndex(newIndex);
-    };
-
-    scrollElement.addEventListener('scroll', handleScroll);
-    return () => scrollElement.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToIndex = (index: number) => {
-    if (scrollRef.current) {
-      const itemWidth = scrollRef.current.clientWidth;
-      scrollRef.current.scrollTo({
-        left: itemWidth * index,
-        behavior: 'smooth'
-      });
-      setCurrentIndex(index);
-    }
-  };
-
   return (
     <div className="app-card">
       <div className="app-header">
@@ -146,25 +118,97 @@ const AppCard: React.FC<{ app: IosApp }> = ({ app }) => {
         </a>
       </div>
       <p className="app-description">{app.description}</p>
-      <div className="screenshots-container">
-        <div className="screenshots-scroll" ref={scrollRef}>
-          {app.screenshots.map((screenshot) => (
-            <Screenshot key={screenshot} screenshot={screenshot} name={app.name} />
+      <ScreenshotContainer screenshots={app.screenshots} name={app.name} />     
+    </div>
+  );
+};
+
+const ScreenshotContainer: React.FC<{
+  screenshots: string[],
+  name: string,
+}> = ({ screenshots, name }) => {
+  const persistedSelectedScreenshot = useQuery(api.ios.getSelectedScreenshot, { appName: name });
+  const updatePersistedSelectedScreenshot = useMutation(api.ios.setSelectedScreenshot);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeCurrentIndex, setActiveCurrentIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Update currentIndex when scrolling
+  useEffect(() => {
+    const scrollElement = scrollRef.current;
+    if (!scrollElement) return;
+
+    const computeCurrentIndex = () => {
+      const scrollPosition = scrollElement.scrollLeft;
+      const itemWidth = scrollElement.clientWidth;
+      return Math.round(scrollPosition / itemWidth);
+    };
+
+    const handleScrollEnd = () => {
+      setCurrentIndex(computeCurrentIndex());
+    };
+    const handleScroll = () => {
+      setActiveCurrentIndex(computeCurrentIndex());
+    };
+
+    scrollElement.addEventListener('scrollend', handleScrollEnd);
+    scrollElement.addEventListener('scroll', handleScroll);
+    return () => {
+      scrollElement.removeEventListener('scrollend', handleScrollEnd);
+      scrollElement.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // If someone else selects a different screenshot, scroll to it
+  useEffect(() => {
+    if (persistedSelectedScreenshot) {
+      const persistedIndex = screenshots.indexOf(persistedSelectedScreenshot);
+      if (persistedIndex !== currentIndex) {
+        scrollToIndex(persistedIndex);
+      }
+    }
+  }, [persistedSelectedScreenshot]);
+
+  // If we select a new screenshot, update the persisted screenshot
+  useEffect(() => {
+    if (persistedSelectedScreenshot) {
+      const persistedIndex = screenshots.indexOf(persistedSelectedScreenshot);
+      if (persistedIndex !== currentIndex) {
+        void updatePersistedSelectedScreenshot({ appName: name, selectedScreenshot: screenshots[currentIndex] });
+      }
+    }
+  }, [currentIndex]);
+
+  const scrollToIndex = (index: number) => {
+    if (scrollRef.current) {
+      const itemWidth = scrollRef.current.clientWidth;
+      scrollRef.current.scrollTo({
+        left: itemWidth * index,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  return (
+    <div className="screenshots-container">
+      <div className="screenshots-scroll" ref={scrollRef}>
+        {screenshots.map((screenshot) => (
+          <Screenshot key={screenshot} screenshot={screenshot} name={name} />
+        ))}
+      </div>
+      {screenshots.length > 1 && (
+        <div className="screenshot-dots">
+          {screenshots.map((_, index) => (
+            <button
+              key={index}
+              className={`dot ${index === activeCurrentIndex ? 'dot-active' : ''}`}
+              onClick={() => scrollToIndex(index)}
+              aria-label={`View screenshot ${index + 1}`}
+            />
           ))}
         </div>
-        {app.screenshots.length > 1 && (
-          <div className="screenshot-dots">
-            {app.screenshots.map((_, index) => (
-              <button
-                key={index}
-                className={`dot ${index === currentIndex ? 'dot-active' : ''}`}
-                onClick={() => scrollToIndex(index)}
-                aria-label={`View screenshot ${index + 1}`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 };

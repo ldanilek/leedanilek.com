@@ -157,6 +157,10 @@
   padding: 4px;
 }
 
+.loading-container {
+  height: 530px;
+}
+
 .screenshot-dots {
   display: flex;
   justify-content: center;
