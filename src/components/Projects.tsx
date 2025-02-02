@@ -37,6 +37,7 @@ const Projects = () => {
       <h4>Applications</h4>
       <ul>
         <li><a href="/ios">View All iOS Apps</a> - Collection of published iOS applications</li>
+        <li><a href="https://play-turing.vercel.app/" target="_blank">Play Turing</a> - Puzzle game where you program a Turing machine</li>
         <li><a href="/tide.py">Tides Calculator</a> - Tool for predicting tidal patterns</li>
       </ul>
     </section>
