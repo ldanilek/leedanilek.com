@@ -1,0 +1,60 @@
+## Cloud-specific instructions
+
+### Required secrets
+
+- `CONVEX_DEPLOY_KEY` — Convex Preview Deploy Key. Generate from the Convex dashboard: Project → Settings → Deploy Keys → Preview Deploy Key.
+
+### Overview
+
+leedanilek.com is a Vite + React + Convex portfolio site. The frontend runs locally; the backend (database, serverless functions) is hosted on Convex cloud.
+
+### Services
+
+| Service | Command | Notes |
+| ------------------ | -------------------------------------- | --------------------------------------------------------------------------------- |
+| Vite dev server | `npm run dev:vite` | Serves at http://localhost:5173 |
+| Convex backend | `npx convex dev --preview-name "${PREVIEW_NAME:-cloud-agent}"` | Watches and pushes changes to a preview deployment. Requires `CONVEX_DEPLOY_KEY`. |
+
+### Preview Deployment (backend development)
+
+The update script automatically creates a Convex preview deployment on startup when `CONVEX_DEPLOY_KEY` is set. It:
+
+1. Derives a preview name from the current git branch
+2. Runs `npx convex dev --preview-name "${PREVIEW_NAME:-cloud-agent}"`
+3. Pushes Convex functions to the preview deployment
+
+`npx convex dev --preview-name "${PREVIEW_NAME:-cloud-agent}" --once` automatically writes `.env.local` with `VITE_CONVEX_URL` (and related vars) for the preview deployment.
+
+After modifying any files in `convex/`, re-deploy with:
+
+```
+PREVIEW_NAME=$(git branch --show-current | tr '/' '-')
+npx convex dev --preview-name "${PREVIEW_NAME:-cloud-agent}" --once
+```
+
+Alternatively, for continuous development with hot-reloading, run:
+
+```
+export PREVIEW_NAME=$(git branch --show-current | tr '/' '-')
+npx convex dev --preview-name "${PREVIEW_NAME:-cloud-agent}"
+```
+
+This watches for changes in `convex/` and automatically pushes them to the preview deployment.
+
+### Running the frontend
+
+```
+npm run dev
+```
+
+This runs both Vite and Convex dev in parallel. Vite reads `VITE_CONVEX_URL` from `.env.local` (or `.env` as fallback).
+
+### Lint / Build
+
+- **Lint**: `npm run lint` (ESLint)
+- **Build**: `npm run build`
+
+### Caveats
+
+- `npm ci` may fail if `package-lock.json` is out of sync with `package.json`. The update script uses `npm install` instead.
+- `npx convex env set` needs `--preview-name ` to target the preview deployment; without it, the command may fail with a 500 error.
