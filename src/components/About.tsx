@@ -3,13 +3,15 @@ const About = () => {
     <section id="about">
       <h3 className="section-header">About Me</h3>
       <p>
-        Hey there! I'm Lee, a software engineer currently building all sorts of features
-        to make app development amazing with Convex: a realtime database, a full-stack backend framework,
-        with pluggable components.
+        Hey there! I'm Lee, a software engineer at Cursor, where I work across machine
+        learning (midtraining), infra (tool calls and Tab), platform (agent harness),
+        and product (Bugbot).
       </p>
       <p>
-        Previously, I worked on the distributed filesystem, file restorations, and partner integrations at 
-        Dropbox.
+        Previously, I built features to make app development amazing at Convex: a realtime
+        database and full-stack backend framework with pluggable components. Before that,
+        I worked on the distributed filesystem, file restorations, and partner
+        integrations at Dropbox.
       </p>
       <p>
         At Yale, I double-majored in Computer Science and Math (with a Master's in CS).
