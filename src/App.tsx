@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/ios" element={<IosApps />} />
         </Routes>
       </BrowserRouter>
+      <Analytics />
     </ConvexProvider>
   );
 }
