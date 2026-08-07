@@ -3,6 +3,16 @@ const Projects = () => {
     <section id="projects">
       <h3 className="section-header">Projects</h3>
 
+      <h4>Cursor</h4>
+      <p>
+        <a href="https://cursor.com">Cursor</a>, the AI code editor.
+      </p>
+      <ul>
+        <li><a href="https://cursor.com/blog/composer-2-5">Composer 2.5</a> - constructed tens of trillions of midtraining tokens for Cursor's coding model.</li>
+        <li><a href="https://cursor.com/blog/bugbot-out-of-beta">Bugbot</a> - a GitHub integration that finds bugs in pull requests.</li>
+        <li>Evals - internal platform for evaluating models from Slack, on arbitrary model, dataset, client, and harness versions.</li>
+      </ul>
+
       <h4>Convex</h4>
       <p>
         <a href="https://convex.dev">Convex</a>, an <a href="https://github.com/get-convex/convex-backend">open source</a> application platform.
